@@ -1,0 +1,145 @@
+swagger: "2.0"
+info:
+  description: "This is a sample Music Archive server."
+  version: "1.0.0"
+  title: "Music Archive"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    name: "Alp Eren Yılmaz"
+    email: "alpyilmaz1997@gmail.com"
+    url: "http://alperenyilmaz.com"
+basePath: "/v2"
+schemes:
+- "https"
+- "http"
+tags:
+- name: "Bands"
+  description: "Everything about Bands"
+
+paths:
+  /bands:
+    get:
+      tags:
+      - "Bands"
+      summary: "Find All Band"
+      description: "return all bands"
+      operationId: "getBands"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Band"
+        "404":
+          description: "Bands cannot find"
+  /bands/{id}:
+    get:
+      tags:
+      - "Bands"
+      summary: "Find Band by id"
+      description: "Return band details by id"
+      operationId: "getBandById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of band to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successfull operation"
+          schema:
+            $ref: "#/definitions/Band"
+        "400":
+          description: "Bad Request"
+        "404":
+          description: "Band Id cannot find"
+  /newBand:
+    post:
+      tags:
+      - "Bands"
+      summary: "Add a new Band to the Database"
+      description: "New Band is added to the Database"
+      operationId: "addBand"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/newBand"
+      responses:
+        "200":
+          description: ""
+definitions:
+  Band:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 1
+      name:
+        type: "string"
+        example: "Nightwish"
+      members:
+        type: "array"
+        items:
+          type: "string"
+          example: ["Tarja Turunen", "Marco Hietala"]
+      discography:
+        type: "array"
+        items:
+          type: "string"
+          example: ["Oceanborn", "Wishmaster"]
+      formed:
+        type: "string"
+        format: "date"
+        example: "1996"
+      genre:
+        type: "array"
+        items: 
+          type: "string"
+          example: ["Symphonic Metal"]
+      status:
+        type: "boolean"
+        example: true
+  newBand:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Nightwish"
+      members:
+        type: "array"
+        items:
+          type: "string"
+          example: ["Tarja Turunen", "Marco Hietala"]
+      discography:
+        type: "array"
+        items:
+          type: "string"
+          example: ["Oceanborn", "Wishmaster"]
+      formed:
+        type: "string"
+        format: "date"
+        example: "1996"
+      genre:
+        type: "array"
+        items: 
+          type: "string"
+          example: ["Symphonic Metal"]
+      status:
+        type: "boolean"
+        example: true
+        

@@ -10,7 +10,6 @@ info:
     url: "http://alperenyilmaz.com"
 basePath: "/v2"
 schemes:
-- "https"
 - "http"
 tags:
 - name: "Bands"
@@ -104,7 +103,7 @@ definitions:
           example: ["Oceanborn", "Wishmaster"]
       formed:
         type: "string"
-        format: "date"
+        pattern: "^[0-9]{4}$"
         example: "1996"
       genre:
         type: "array"

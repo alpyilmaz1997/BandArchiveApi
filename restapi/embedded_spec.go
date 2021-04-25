@@ -199,7 +199,7 @@ func init() {
         },
         "formed": {
           "type": "string",
-          "format": "date",
+          "pattern": "^[0-9]{4}$",
           "example": "1996"
         },
         "genre": {
@@ -421,7 +421,7 @@ func init() {
         },
         "formed": {
           "type": "string",
-          "format": "date",
+          "pattern": "^[0-9]{4}$",
           "example": "1996"
         },
         "genre": {

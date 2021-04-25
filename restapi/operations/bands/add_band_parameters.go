@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/validate"
 
-	"github.com/go-swagger/go-swagger/models"
+	"github.com/alpyilmaz1997/BandArchiveApi/models"
 )
 
 // NewAddBandParams creates a new AddBandParams object

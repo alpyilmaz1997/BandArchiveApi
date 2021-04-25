@@ -8,10 +8,12 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/restapi/operations"
-	"github.com/go-swagger/go-swagger/restapi/operations/bands"
+	"github.com/alpyilmaz1997/BandArchiveApi/repository"
+	"github.com/alpyilmaz1997/BandArchiveApi/restapi/handlers/bandhandlers"
+	"github.com/alpyilmaz1997/BandArchiveApi/restapi/operations"
+	"github.com/alpyilmaz1997/BandArchiveApi/restapi/operations/bands"
+	"github.com/alpyilmaz1997/BandArchiveApi/services/bandservice"
 )
 
 //go:generate swagger generate server --target ../../BandArchiveApi --name BandArchiceAPI --spec ../swagger.yaml --principal interface{}
@@ -38,16 +40,15 @@ func configureAPI(api *operations.BandArchiceAPIAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	api.BandsAddBandHandler = bands.AddBandHandlerFunc(func(params bands.AddBandParams) middleware.Responder {
-		return middleware.NotImplemented("operation bands.AddBand has not yet been implemented")
-	})
-	api.BandsGetBandByIDHandler = bands.GetBandByIDHandlerFunc(func(params bands.GetBandByIDParams) middleware.Responder {
-		return middleware.NotImplemented("operation bands.GetBandByID has not yet been implemented")
-	})
-	api.BandsGetBandsHandler = bands.GetBandsHandlerFunc(func(params bands.GetBandsParams) middleware.Responder {
-		// Handlerlar buraya yazılacak...
-		return middleware.NotImplemented("Coming Soon")
-	})
+	bandService := bandservice.New(repository.New())
+
+	bandHandlers := bandhandlers.New(bandService)
+
+	api.BandsAddBandHandler = bands.AddBandHandlerFunc(bandHandlers.AddBand)
+
+	api.BandsGetBandByIDHandler = bands.GetBandByIDHandlerFunc(bandHandlers.GetBandByID)
+
+	api.BandsGetBandsHandler = bands.GetBandsHandlerFunc(bandHandlers.GetBands)
 
 	api.PreServerShutdown = func() {}
 

@@ -24,8 +24,8 @@ type NewBand struct {
 
 	// formed
 	// Example: 1996
-	// Format: date
-	Formed strfmt.Date `json:"formed,omitempty"`
+	// Pattern: ^[0-9]{4}$
+	Formed string `json:"formed,omitempty"`
 
 	// genre
 	Genre []string `json:"genre"`
@@ -61,7 +61,7 @@ func (m *NewBand) validateFormed(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.FormatOf("formed", "body", "date", m.Formed.String(), formats); err != nil {
+	if err := validate.Pattern("formed", "body", m.Formed, `^[0-9]{4}$`); err != nil {
 		return err
 	}
 

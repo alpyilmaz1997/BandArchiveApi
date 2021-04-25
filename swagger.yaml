@@ -131,7 +131,7 @@ definitions:
           example: ["Oceanborn", "Wishmaster"]
       formed:
         type: "string"
-        format: "date"
+        pattern: "^[0-9]{4}$"
         example: "1996"
       genre:
         type: "array"

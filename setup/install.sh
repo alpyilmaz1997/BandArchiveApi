@@ -16,7 +16,7 @@ PG_VERSION=9.4
 print_db_usage () {
   echo "Your PostgreSQL database has been setup and can be accessed on your local machine on the forwarded port (default: 15432)"
   echo "  Host: localhost"
-  echo "  Port: 1234"
+  echo "  Port: 15432"
   echo "  Database: $APP_DB_NAME"
   echo "  Username: $APP_DB_USER"
   echo "  Password: $APP_DB_PASS"

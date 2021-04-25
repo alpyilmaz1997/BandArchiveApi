@@ -19,7 +19,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/restapi/operations/bands"
+	"github.com/alpyilmaz1997/BandArchiveApi/restapi/operations/bands"
 )
 
 // NewBandArchiceAPIAPI creates a new BandArchiceAPI instance

@@ -58,6 +58,9 @@ func init() {
           },
           "404": {
             "description": "Bands cannot find"
+          },
+          "500": {
+            "description": "Internal Server"
           }
         }
       }
@@ -95,6 +98,9 @@ func init() {
           },
           "404": {
             "description": "Band Id cannot find"
+          },
+          "500": {
+            "description": "Internal Error"
           }
         }
       }
@@ -125,7 +131,13 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Band"
+            }
+          },
+          "500": {
+            "description": "Internal Error"
           }
         }
       }
@@ -280,6 +292,9 @@ func init() {
           },
           "404": {
             "description": "Bands cannot find"
+          },
+          "500": {
+            "description": "Internal Server"
           }
         }
       }
@@ -317,6 +332,9 @@ func init() {
           },
           "404": {
             "description": "Band Id cannot find"
+          },
+          "500": {
+            "description": "Internal Error"
           }
         }
       }
@@ -347,7 +365,13 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Band"
+            }
+          },
+          "500": {
+            "description": "Internal Error"
           }
         }
       }

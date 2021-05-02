@@ -10,7 +10,7 @@ type Repository struct {
 }
 
 func New() *Repository {
-	engine, err := xorm.NewEngine("postgres", "postgres://myapp:dbpass@localhost:1234/myapp")
+	engine, err := xorm.NewEngine("postgres", "postgres://postgres:mypass@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		panic(err)
 	}

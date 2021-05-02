@@ -83,3 +83,27 @@ func (o *GetBandsNotFound) WriteResponse(rw http.ResponseWriter, producer runtim
 
 	rw.WriteHeader(404)
 }
+
+// GetBandsInternalServerErrorCode is the HTTP code returned for type GetBandsInternalServerError
+const GetBandsInternalServerErrorCode int = 500
+
+/*GetBandsInternalServerError Internal Server
+
+swagger:response getBandsInternalServerError
+*/
+type GetBandsInternalServerError struct {
+}
+
+// NewGetBandsInternalServerError creates GetBandsInternalServerError with default headers values
+func NewGetBandsInternalServerError() *GetBandsInternalServerError {
+
+	return &GetBandsInternalServerError{}
+}
+
+// WriteResponse to the client
+func (o *GetBandsInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(500)
+}

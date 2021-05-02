@@ -9,6 +9,8 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
+	"github.com/alpyilmaz1997/BandArchiveApi/models"
 )
 
 // AddBandOKCode is the HTTP code returned for type AddBandOK
@@ -19,6 +21,11 @@ const AddBandOKCode int = 200
 swagger:response addBandOK
 */
 type AddBandOK struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *models.Band `json:"body,omitempty"`
 }
 
 // NewAddBandOK creates AddBandOK with default headers values
@@ -27,10 +34,49 @@ func NewAddBandOK() *AddBandOK {
 	return &AddBandOK{}
 }
 
+// WithPayload adds the payload to the add band o k response
+func (o *AddBandOK) WithPayload(payload *models.Band) *AddBandOK {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the add band o k response
+func (o *AddBandOK) SetPayload(payload *models.Band) {
+	o.Payload = payload
+}
+
 // WriteResponse to the client
 func (o *AddBandOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
+	rw.WriteHeader(200)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
+}
+
+// AddBandInternalServerErrorCode is the HTTP code returned for type AddBandInternalServerError
+const AddBandInternalServerErrorCode int = 500
+
+/*AddBandInternalServerError Internal Error
+
+swagger:response addBandInternalServerError
+*/
+type AddBandInternalServerError struct {
+}
+
+// NewAddBandInternalServerError creates AddBandInternalServerError with default headers values
+func NewAddBandInternalServerError() *AddBandInternalServerError {
+
+	return &AddBandInternalServerError{}
+}
+
+// WriteResponse to the client
+func (o *AddBandInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
 	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
 
-	rw.WriteHeader(200)
+	rw.WriteHeader(500)
 }

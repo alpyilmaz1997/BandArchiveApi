@@ -6,9 +6,9 @@ import (
 )
 
 type Repository interface {
-	GetBands() []*dbmodels.Dbband
-	GetBandByID(id int64) *dbmodels.Dbband
-	AddBand(body *dbmodels.Dbband)
+	GetBands() ([]*dbmodels.Dbband, error)
+	GetBandByID(id int64) (*dbmodels.Dbband, error)
+	AddBand(body *dbmodels.Dbband) (*dbmodels.Dbband, error)
 }
 
 type Bandservice struct {
@@ -21,9 +21,12 @@ func New(repo Repository) *Bandservice {
 	}
 }
 
-func (bs *Bandservice) GetBands() []*models.Band {
+func (bs *Bandservice) GetBands() ([]*models.Band, error) {
 	var allbands []*models.Band
-	list := bs.repo.GetBands()
+	list, err := bs.repo.GetBands()
+	if err != nil {
+		return nil, err
+	}
 	for _, band := range list {
 		allbands = append(allbands, &models.Band{
 			Discography: band.Discography,
@@ -35,10 +38,13 @@ func (bs *Bandservice) GetBands() []*models.Band {
 			Status:      band.Status,
 		})
 	}
-	return allbands
+	return allbands, nil
 }
-func (bs *Bandservice) GetBandByID(id int64) *models.Band {
-	received := bs.repo.GetBandByID(id)
+func (bs *Bandservice) GetBandByID(id int64) (*models.Band, error) {
+	received, err := bs.repo.GetBandByID(id)
+	if err != nil {
+		return nil, err
+	}
 	band := &models.Band{
 		Discography: received.Discography,
 		Formed:      received.Formed,
@@ -48,9 +54,9 @@ func (bs *Bandservice) GetBandByID(id int64) *models.Band {
 		Name:        received.Name,
 		Status:      received.Status,
 	}
-	return band
+	return band, nil
 }
-func (bs *Bandservice) AddBand(body *models.NewBand) {
+func (bs *Bandservice) AddBand(body *models.NewBand) (*models.Band, error) {
 	outgoingBand := &dbmodels.Dbband{
 		Discography: body.Discography,
 		Formed:      body.Formed,
@@ -59,5 +65,18 @@ func (bs *Bandservice) AddBand(body *models.NewBand) {
 		Name:        body.Name,
 		Status:      body.Status,
 	}
-	bs.repo.AddBand(outgoingBand)
+	received, err := bs.repo.AddBand(outgoingBand)
+	if err != nil {
+		return nil, err
+	}
+	newband := &models.Band{
+		Discography: received.Discography,
+		Formed:      received.Formed,
+		Genre:       received.Genre,
+		ID:          received.ID,
+		Members:     received.Members,
+		Name:        received.Name,
+		Status:      received.Status,
+	}
+	return newband, nil
 }

@@ -104,3 +104,27 @@ func (o *GetBandByIDNotFound) WriteResponse(rw http.ResponseWriter, producer run
 
 	rw.WriteHeader(404)
 }
+
+// GetBandByIDInternalServerErrorCode is the HTTP code returned for type GetBandByIDInternalServerError
+const GetBandByIDInternalServerErrorCode int = 500
+
+/*GetBandByIDInternalServerError Internal Error
+
+swagger:response getBandByIdInternalServerError
+*/
+type GetBandByIDInternalServerError struct {
+}
+
+// NewGetBandByIDInternalServerError creates GetBandByIDInternalServerError with default headers values
+func NewGetBandByIDInternalServerError() *GetBandByIDInternalServerError {
+
+	return &GetBandByIDInternalServerError{}
+}
+
+// WriteResponse to the client
+func (o *GetBandByIDInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(500)
+}
